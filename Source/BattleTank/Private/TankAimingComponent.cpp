@@ -34,7 +34,11 @@ void UTankAimingComponent::AimAt(FVector hitLocation,float launchSpeed){
 		startLocation,
 		hitLocation,
 		launchSpeed,
-		ESuggestProjVelocityTraceOption::DoNotTrace);
+		false,
+		0,
+		0,
+		ESuggestProjVelocityTraceOption::DoNotTrace // paramater must be present to prevent bug.
+	);
 
 	auto time = GetWorld()->GetTimeSeconds();//TODO It is for loging delete later.
 
