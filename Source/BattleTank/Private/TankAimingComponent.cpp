@@ -35,11 +35,17 @@ void UTankAimingComponent::AimAt(FVector hitLocation,float launchSpeed){
 		hitLocation,
 		launchSpeed,
 		ESuggestProjVelocityTraceOption::DoNotTrace);
-	
+
+	auto time = GetWorld()->GetTimeSeconds();//TODO It is for loging delete later.
+
 	if(bHaveAimSolution) {
 			auto aimDirection = outLaunchVelocity.GetSafeNormal();
 			auto tankName = GetOwner()->GetName();
 			MoveBarrelTowards(aimDirection);
+			UE_LOG(LogTemp, Warning, TEXT("Barel-elevate() at %f"), time);//TODO Log to delete.
+	}else{
+
+		UE_LOG(LogTemp, Warning, TEXT("No solution is found at %f"), time);//TODO Log to delete.
 	}
 
 }
