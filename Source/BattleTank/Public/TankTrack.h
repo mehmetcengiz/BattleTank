@@ -13,7 +13,11 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 {
 	GENERATED_BODY()
 	
+public:
+	//Sets a throttle between -1 and +1
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void SetThrottle(float throttle);
 	
-	
+
 	
 };
