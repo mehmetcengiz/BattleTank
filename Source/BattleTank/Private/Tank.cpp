@@ -32,12 +32,9 @@ void ATank::BeginPlay(){
 
 }
 
-
-
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent){
 	Super::SetupPlayerInputComponent(InputComponent);
-
 }
 
 void ATank::AimAt(FVector hitLocation){

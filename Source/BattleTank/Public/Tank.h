@@ -48,6 +48,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category=Firing)
 	float reloadTimeInSeconds = 3;
+	
+	double lastFireTime = 0;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBluePrint;
@@ -56,6 +58,5 @@ private:
 	UTankBarrel *Barrel = nullptr;
 
 
-	double lastFireTime;
 
 };
