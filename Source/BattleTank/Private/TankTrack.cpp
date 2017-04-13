@@ -4,10 +4,7 @@
 #include "TankTrack.h"
 
 
-void UTankTrack::SetThrottle(float throttle){
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s THROTTLE ACTIVATED. Power: %f"),*name,throttle);
-	
+void UTankTrack::SetThrottle(float throttle){	
 	//TODO clamp actual throttle value so player can't over-drive.
 	auto forceApplied = GetForwardVector() * throttle * trackMaxDrivingForce;
 	auto forceLocation = GetComponentLocation();
