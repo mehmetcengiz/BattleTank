@@ -20,6 +20,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	auto rotateThrow = FVector::CrossProduct(tankForward, AIForwardIntention).Z;
 	IntendTurn(rotateThrow);
+	UE_LOG(LogTemp, Warning, TEXT("Right: %f, Forward: %f"), rotateThrow, forwardThrow);
 
 }
 
