@@ -21,7 +21,8 @@ void ATank::BeginPlay(){
 }
 
 void ATank::AimAt(FVector hitLocation){
-	
+	if (!tankAimingComponent) { return; }
+
 	tankAimingComponent->AimAt(hitLocation,launchSpeed);
 
 }
