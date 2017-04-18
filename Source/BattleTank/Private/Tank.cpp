@@ -17,6 +17,7 @@ ATank::ATank(){
 void ATank::BeginPlay(){
 	Super::BeginPlay();
 
+	tankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::AimAt(FVector hitLocation){
