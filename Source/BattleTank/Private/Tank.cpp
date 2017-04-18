@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -29,8 +28,10 @@ void ATank::AimAt(FVector hitLocation){
 
 void ATank::Fire(){
 
+	if (!ensure(Barrel)) { return; }
+
 	bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-	if (Barrel && isReloaded) {
+	if (isReloaded) {
 
 		//Spawn projectile.
 		auto projectile = GetWorld()->SpawnActor<AProjectile>(
