@@ -17,6 +17,18 @@ UTankAimingComponent::UTankAimingComponent(){
 	// ...
 }
 
+void UTankAimingComponent::BeginPlay(){
+	lastFireTime = FPlatformTime::Seconds();
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ElevelTick TickType, FActorComponentTickFunction *ThisTickFunction){
+	UE_LOG(LogTemp, Warning, TEXT("Aiming comp ticking."));
+	if((FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds){
+		FiringState = EFiringState::RELOADING;
+	}
+	//TODO Handle aiming and locked states.
+}
+
 void UTankAimingComponent::Initialise(UTankBarrel *barrelToSet, UTankTurret *turretToSet) {
 	if (!ensure(barrelToSet && turretToSet)) { return; }
 	barrel = barrelToSet;
@@ -67,11 +79,12 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection){
 
 void UTankAimingComponent::Fire() {
 
-	if (!ensure(barrel && ProjectileBluePrint)) { return; }
+	
 
-	bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-	if (isReloaded) {
-
+	
+	if (FiringState != EFiringState::RELOADING) {
+		if (!ensure(barrel)) { return; }
+		if (!ensure(ProjectileBluePrint)) { return; }
 		//Spawn projectile.
 		auto projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBluePrint,
