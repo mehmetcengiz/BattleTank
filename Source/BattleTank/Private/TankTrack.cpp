@@ -3,6 +3,26 @@
 #include "BattleTank.h"
 #include "TankTrack.h"
 
+UTankTrack::UTankTrack(){
+	PrimaryComponentTick.bCanEverTick = true;
+}
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction){
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+	// Calculate the slippage speed;
+	auto rightVector = GetRightVector();
+	auto slippageSpeed = FVector::DotProduct(rightVector, GetComponentVelocity());
+	
+	// Workout the required acceleration this frame to correct.
+	auto correctionAcceleration = -slippageSpeed / DeltaTime * rightVector;
+	
+	// Calculate and apply sideways for (F = m a)
+	auto tankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto correctionForce = (tankRoot->GetMass() * correctionAcceleration) / 2 ; // Two tracks
+	tankRoot->AddForce(correctionForce);
+
+}
 
 void UTankTrack::SetThrottle(float throttle){	
 	//TODO clamp actual throttle value so player can't over-drive.

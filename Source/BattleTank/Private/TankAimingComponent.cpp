@@ -92,7 +92,6 @@ void UTankAimingComponent::Fire() {
 	if (FiringState != EFiringState::RELOADING) {
 		if (!ensure(barrel)) { return; }
 		if (!ensure(ProjectileBluePrint)) { return; }
-		UE_LOG(LogTemp, Warning, TEXT("Fire 1"));
 		//Spawn projectile.
 		auto projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBluePrint,
