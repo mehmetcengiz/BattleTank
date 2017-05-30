@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "Projectile.h"
 
+#define OUT
 
 // Sets default values
 AProjectile::AProjectile() {
@@ -45,4 +46,14 @@ void AProjectile::OnHit(UPrimitiveComponent *HitComponent, AActor* OtherActor, U
 	launchBlast->Deactivate();
 	impactBlast->Activate();
 	explosionForce->FireImpulse();
+	SetRootComponent(impactBlast);
+	collisionMesh->DestroyComponent();
+
+
+	FTimerHandle timer;
+	GetWorld()->GetTimerManager().SetTimer(OUT timer, this, &AProjectile::OnTimerExpire, destroyDelay, false);
+}
+
+void AProjectile::OnTimerExpire(){
+	Destroy();
 }
