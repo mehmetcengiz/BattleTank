@@ -15,10 +15,15 @@ public:
 	virtual float TakeDamage(float damageAmount, struct FDamageEvent const &damageEvent,
 		class AController * eventInstigator, AActor *damageCauser);
 
+	//Return current health as a percentage of starting health. 0 to 1.
+	UFUNCTION(BlueprintPure, Category="Health")
+	float GetHealthPercent() const;
+
+private:
+
 	// Sets default values for this pawn's properties
 	ATank();
 
-private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 startingHealt = 100;
 
