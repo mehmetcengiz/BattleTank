@@ -11,6 +11,11 @@ ATank::ATank(){
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay(){
+	Super::BeginPlay();
+	currentHealth = startingHealt;
+}
+
 float ATank::TakeDamage(float damageAmount, struct FDamageEvent const &damageEvent, class AController * eventInstigator, AActor *damageCauser){
 
 	int32 damagePoints = FPlatformMath::RoundToInt(damageAmount);
