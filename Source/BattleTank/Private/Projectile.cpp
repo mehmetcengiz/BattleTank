@@ -46,8 +46,18 @@ void AProjectile::OnHit(UPrimitiveComponent *HitComponent, AActor* OtherActor, U
 	launchBlast->Deactivate();
 	impactBlast->Activate();
 	explosionForce->FireImpulse();
+
 	SetRootComponent(impactBlast);
 	collisionMesh->DestroyComponent();
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		projectileDamage,
+		GetActorLocation(),
+		explosionForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>()	//damage all actors.
+	);
 
 
 	FTimerHandle timer;
